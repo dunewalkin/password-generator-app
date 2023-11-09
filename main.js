@@ -23,43 +23,20 @@ function updateStylesForActiveButtons(activeButtons, tempSliderValue) {
    const strengthStatus = document.querySelector('.strength-status');
 
    if (activeButtons >= 4 && tempSliderValue >= 8) {
-      squaresToUpdate.forEach(square => {
-         square.style.border = '2px solid hsl(var(--clr-primary-2))';
-         square.style.background = 'hsl(var(--clr-primary-2))';
-      });
+      const color = 'hsl(var(--clr-primary-2))';
+      updateStylesForSquares(squaresToUpdate, color);
       strengthStatus.textContent = 'strong';
    } else if (activeButtons >= 3 && tempSliderValue >= 6) {
-      squaresToUpdate.forEach((square, index) => {
-         if (index < 3) {
-            square.style.border = '2px solid hsl(var(--clr-password-3))';
-            square.style.background = 'hsl(var(--clr-password-3))';
-         } else {
-            square.style.border = `2px solid hsl(var(--clr-primary-1))`;
-            square.style.background = 'transparent';
-         }
-      });
+      const color = 'hsl(var(--clr-password-3))';
+      updateStylesForSquares(squaresToUpdate, color, 3);
       strengthStatus.textContent = 'medium';
    } else if (activeButtons >= 2 && tempSliderValue >= 4) {
-      squaresToUpdate.forEach((square, index) => {
-         if (index < 2) {
-            square.style.border = '2px solid hsl(var(--clr-password-2))';
-            square.style.background = 'hsl(var(--clr-password-2))';
-         } else {
-            square.style.border = `2px solid hsl(var(--clr-primary-1))`;
-            square.style.background = 'transparent';
-         }
-      });
+      const color = 'hsl(var(--clr-password-2))';
+      updateStylesForSquares(squaresToUpdate, color, 2);
       strengthStatus.textContent = 'weak';
    } else if (activeButtons >= 1 && tempSliderValue >= 1) {
-      squaresToUpdate.forEach((square, index) => {
-         if (index === 0) {
-            square.style.border = '2px solid hsl(var(--clr-password-1))';
-            square.style.background = 'hsl(var(--clr-password-1))';
-         } else {
-            square.style.border = `2px solid hsl(var(--clr-primary-1))`;
-            square.style.background = 'transparent';
-         }
-      });
+      const color = 'hsl(var(--clr-password-1))';
+      updateStylesForSquares(squaresToUpdate, color, 1);
       strengthStatus.textContent = 'too weak!';
    } else {
       squaresToUpdate.forEach(square => {
@@ -70,6 +47,17 @@ function updateStylesForActiveButtons(activeButtons, tempSliderValue) {
    }
 }
 
+function updateStylesForSquares(squares, color, count = squares.length) {
+   squares.forEach((square, index) => {
+      if (index < count) {
+         square.style.border = `2px solid ${color}`;
+         square.style.background = color;
+      } else {
+         square.style.border = `2px solid hsl(var(--clr-primary-1))`;
+         square.style.background = 'transparent';
+      }
+   });
+}
 
 parameterButton.forEach(button => {
    button.addEventListener('click', () => {
@@ -80,7 +68,6 @@ parameterButton.forEach(button => {
       updateStylesForActiveButtons(activeButtons, tempSliderValue);
    });
 });
-
 
 const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
@@ -115,8 +102,11 @@ generateButton.addEventListener('click', () => {
     const useSymbols = document.querySelector('.symbols-btn').classList.contains('active-btn');
 
     const password = generatePassword(sliderValue, useUppercase, useLowercase, useNumbers, useSymbols);
-    document.getElementById('passwordDisplay').textContent = password;
+
+    if (activeButtons >= 1 && tempSliderValue >= 1) {
+      document.getElementById('passwordDisplay').textContent = password;
     document.getElementById('passwordDisplay').classList.add('output-active');
+    }
 });
 
 
