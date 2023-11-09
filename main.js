@@ -20,49 +20,56 @@ slider.addEventListener("input", (event) => {
 
 function updateStylesForActiveButtons(activeButtons, tempSliderValue) {
    const squaresToUpdate = document.querySelectorAll('.schematic-group .square');
-
-   squaresToUpdate.forEach((square, index) => {
-      if (activeButtons >= index + 1) {
-         square.style.border = `2px solid ${getColor(activeButtons, tempSliderValue)}`;
-         square.style.background = getColor(activeButtons, tempSliderValue);
-      } else {
-         square.style.border = '2px solid hsl(var(--clr-primary-1))';
-         square.style.background = 'transparent';
-      }
-   });
-
-   updateStrengthStatus(activeButtons, tempSliderValue);
-}
-
-function getColor(activeButtons, tempSliderValue) {
-   if (activeButtons >= 4 && tempSliderValue >= 8) {
-      return 'hsl(var(--clr-primary-2))';
-   } else if (activeButtons >= 3 && tempSliderValue >= 6) {
-      return 'hsl(var(--clr-password-3))';
-   } else if (activeButtons >= 2 && tempSliderValue >= 4) {
-      return 'hsl(var(--clr-password-2))';
-   } else if (activeButtons >= 1 && tempSliderValue >= 1) {
-      return 'hsl(var(--clr-password-1))';
-   } else {
-      return 'hsl(var(--clr-primary-1))';
-   }
-}
-
-function updateStrengthStatus(activeButtons, tempSliderValue) {
    const strengthStatus = document.querySelector('.strength-status');
-   
+
    if (activeButtons >= 4 && tempSliderValue >= 8) {
+      squaresToUpdate.forEach(square => {
+         square.style.border = '2px solid hsl(var(--clr-primary-2))';
+         square.style.background = 'hsl(var(--clr-primary-2))';
+      });
       strengthStatus.textContent = 'strong';
    } else if (activeButtons >= 3 && tempSliderValue >= 6) {
+      squaresToUpdate.forEach((square, index) => {
+         if (index < 3) {
+            square.style.border = '2px solid hsl(var(--clr-password-3))';
+            square.style.background = 'hsl(var(--clr-password-3))';
+         } else {
+            square.style.border = `2px solid hsl(var(--clr-primary-1))`;
+            square.style.background = 'transparent';
+         }
+      });
       strengthStatus.textContent = 'medium';
    } else if (activeButtons >= 2 && tempSliderValue >= 4) {
+      squaresToUpdate.forEach((square, index) => {
+         if (index < 2) {
+            square.style.border = '2px solid hsl(var(--clr-password-2))';
+            square.style.background = 'hsl(var(--clr-password-2))';
+         } else {
+            square.style.border = `2px solid hsl(var(--clr-primary-1))`;
+            square.style.background = 'transparent';
+         }
+      });
       strengthStatus.textContent = 'weak';
    } else if (activeButtons >= 1 && tempSliderValue >= 1) {
+      squaresToUpdate.forEach((square, index) => {
+         if (index === 0) {
+            square.style.border = '2px solid hsl(var(--clr-password-1))';
+            square.style.background = 'hsl(var(--clr-password-1))';
+         } else {
+            square.style.border = `2px solid hsl(var(--clr-primary-1))`;
+            square.style.background = 'transparent';
+         }
+      });
       strengthStatus.textContent = 'too weak!';
    } else {
+      squaresToUpdate.forEach(square => {
+         square.style.border = `2px solid hsl(var(--clr-primary-1))`;
+         square.style.background = 'transparent';
+      });
       strengthStatus.textContent = '';
    }
 }
+
 
 parameterButton.forEach(button => {
    button.addEventListener('click', () => {
