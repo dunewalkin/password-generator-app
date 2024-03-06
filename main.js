@@ -109,7 +109,6 @@ generateButton.addEventListener('click', () => {
     }
 });
 
-
 const copyButton = document.querySelector('.copy-btn');
 const copiedText = document.querySelector('.copied-message');
 

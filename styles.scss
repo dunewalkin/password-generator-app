@@ -1,8 +1,19 @@
 @font-face {
-   font-family: 'JetBrains Mono';
-   src: url(./assets/fonts/JetBrainsMono-VariableFont_wght.ttf);
+   font-family: "JetBrains Mono";
+   src:   local("JetBrains Mono Bold"),
+          url(assets/fonts/JetBrainsMono-Bold.woff2) format('woff2'),
+          url(assets/fonts/JetBrainsMono-Bold.woff2) format('woff');
    font-weight: 700;
-}
+ }
+ 
+ @font-face {
+   font-family: "JetBrains Mono";
+   src:   local("JetBrains Mono Bold Italic"),
+          url(assets/fonts/JetBrainsMono-BoldItalic.woff2) format('woff2'),
+          url(assets/fonts/JetBrainsMono-BoldItalic.woff) format('woff');
+   font-style: italic;
+   font-weight: 700;
+ }
 
 :root {
    --clr-primary-1: 252, 11%, 91%;
